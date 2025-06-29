@@ -1,71 +1,316 @@
-*{
+/* Basic Reset and Global Styles */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Times New Roman';
-    background-color: rgb(62, 61, 61);
-    color: white;
 }
-h1,h2{
-    text-align: center;
+
+/* Define CSS Variables for the Color Palette */
+:root {
+  /* Primary & Accent */
+  --color-primary: #2C3E50; /* Dark Blue-Gray (almost Navy) - Main background, strong text */
+  --color-accent: #3498DB;  /* Vibrant Blue - Buttons, links, highlights */
+
+  /* Neutrals */
+  --color-background-light: #ECF0F1; /* Light Gray/Off-white - Main content background */
+  --color-background-dark: #34495E;  /* Medium Blue-Gray - Card backgrounds, secondary sections */
+  --color-text-dark: #2C3E50;     /* Dark text for light backgrounds */
+  --color-text-light: #ECF0F1;    /* Light text for dark backgrounds */
+  --color-text-muted: #7F8C8D;    /* Muted gray for secondary text */
+  --color-border: #BDC3C7;       /* Light border color */
+  --color-input-bg: #34495E;     /* Specific input background, matches --color-background-dark for consistency */
+  --color-input-border: #7F8C8D; /* Muted border for inputs */
+
+  /* Feedback Colors (adjusting to fit the palette better, replacing some reds) */
+  --color-success: #27AE60;       /* Emerald Green - Success messages */
+  --color-warning: #F39C12;       /* Orange - Warning messages */
+  --color-error: #E74C3C;         /* Alizarin Red - Error messages */
+  --color-secondary-button: #9B59B6; /* Purple for Clear All, as previously used */
+  --color-secondary-button-hover: #8E44AD; /* Darker purple on hover */
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-primary); /* Use primary for overall dark background */
+    color: var(--color-text-light); /* Light text on dark background */
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top for longer content */
+    min-height: 100vh;
     padding: 20px;
 }
-.input-section{
-    display: flex;
-    flex-direction:row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px;
-}
-.input-section label{
-    font-weight: bold;
-    margin-right: 10px;
-}
-.input-section input[type="number"], .input-section input[type="date"]{
-    padding: 5px;
-    margin-right: 10px;
-}
-.input-section button{
-    padding: 5px 10px;
-    background-color: red;
-    color: white;
-    font-weight: 600;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.input-section button:hover{
-    background-color: white;
-    color: red;
-}
-.expenses-list{
-    margin: 25px;
-}
-table{
+
+.container {
+    background-color: var(--color-background-dark); /* Slightly lighter dark blue-gray */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    padding: 30px;
     width: 100%;
-    border-collapse: collapse;
+    max-width: 900px;
+    margin: 20px auto; /* Centering and adding vertical margin */
 }
-th,td{
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+
+h1, h2 {
+    text-align: center;
+    padding-bottom: 20px;
+    color: var(--color-accent); /* Use accent blue for headings */
+    font-weight: 700;
+    margin-bottom: 20px;
 }
-th{
-    background-color: rgb(172, 1, 1);
+
+h1 {
+    font-size: 2.5em;
+    letter-spacing: 1px;
 }
-tfoot td{
+
+h2 {
+    font-size: 1.8em;
+    margin-top: 0;
+    color: var(--color-warning); /* Use warning orange for subheadings, provides a nice contrast */
+}
+
+/* Card Styling for Sections */
+.card {
+    background-color: var(--color-primary); /* Inner card background, slightly darker */
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Section Styles */
+.input-section {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    gap: 20px; /* Space between input groups */
+    justify-content: space-between;
+    align-items: flex-end; /* Align inputs to their bottoms */
+    margin-bottom: 30px;
+}
+
+.input-group {
+    flex: 1; /* Allow input groups to grow and shrink */
+    min-width: 180px; /* Minimum width before wrapping */
+    display: flex;
+    flex-direction: column;
+}
+
+.input-section label {
     font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--color-text-muted); /* Lighter gray for labels */
 }
-.delete-btn{
-    padding: 5px 10px;
-    background-color: red;
-    color: white;
+
+.input-section input[type="number"],
+.input-section input[type="date"],
+.input-section select {
+    padding: 12px 15px;
+    border: 1px solid var(--color-input-border); /* Muted border */
+    border-radius: 6px;
+    background-color: var(--color-input-bg); /* Input background */
+    color: var(--color-text-light); /* Input text color */
+    font-size: 1em;
+    width: 100%; /* Full width within its group */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-section input[type="number"]:focus,
+.input-section input[type="date"]:focus,
+.input-section select:focus {
+    outline: none;
+    border-color: var(--color-accent); /* Blue on focus */
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5); /* Soft glow using accent color */
+}
+
+/* Make date picker icon visible */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Makes the icon white for dark background */
+}
+
+/* Button Styles */
+button {
+    padding: 12px 25px;
+    background-color: var(--color-accent); /* Blue accent for buttons */
+    color: var(--color-text-light);
     font-weight: 600;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    flex-shrink: 0; /* Prevent button from shrinking */
+    margin-top: 10px; /* Space when wrapping */
 }
-.delete-btn:hover{
-    background-color: white;
-    color: red;
+
+button:hover {
+    background-color: var(--color-primary); /* Darker blue-gray on hover, or a lighter accent */
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0); /* Press effect */
+    box-shadow: none;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: separate; /* Use separate for rounded borders */
+    border-spacing: 0;
+    margin-top: 20px;
+    overflow: hidden; /* Ensures rounded corners apply */
+    border-radius: 8px; /* Rounded corners for the entire table */
+}
+
+th, td {
+    border: 1px solid var(--color-border); /* Lighter border for contrast */
+    padding: 15px;
+    text-align: left;
+    white-space: nowrap; /* Prevent text wrapping in table cells */
+}
+
+th {
+    background-color: var(--color-primary); /* Darker background for header */
+    color: var(--color-text-light);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* First and Last Column Border Radius */
+th:first-child { border-top-left-radius: 8px; }
+th:last-child { border-top-right-radius: 8px; }
+/* tbody tr:last-child td:first-child { border-bottom-left-radius: 8px; } */ /* Removed, tfoot handles this */
+/* tbody tr:last-child td:last-child { border-bottom-right-radius: 8px; } */ /* Removed, tfoot handles this */
+
+
+tbody tr:nth-child(even) {
+    background-color: var(--color-background-dark); /* Alternate row color */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: var(--color-primary); /* Alternate row color */
+}
+
+tfoot td {
+    font-weight: bold;
+    background-color: var(--color-background-dark); /* Footer background */
+    color: var(--color-text-light);
+    font-size: 1.1em;
+}
+
+/* Make total row visually distinct */
+tfoot tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+tfoot tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+
+/* Delete Button in Table */
+.delete-btn {
+    background-color: var(--color-error); /* Red for delete button */
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b; /* Slightly darker red on hover for delete */
+}
+
+/* Clear All Button */
+.clear-all-btn {
+    background-color: var(--color-secondary-button); /* Purple accent for clear all */
+    margin-top: 25px;
+    display: block; /* Make it take full width */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.clear-all-btn:hover {
+    background-color: var(--color-secondary-button-hover);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .input-section {
+        flex-direction: column; /* Stack inputs vertically */
+        align-items: stretch; /* Stretch inputs to full width */
+        gap: 15px;
+    }
+
+    .input-group {
+        min-width: unset; /* Remove min-width on small screens */
+    }
+
+    .input-section button {
+        width: 100%; /* Full width button */
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers on small screens */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid var(--color-border); /* Use variable for border */
+        margin-bottom: 15px;
+        border-radius: 8px;
+        background-color: var(--color-primary); /* Use primary for row background */
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%; /* Space for pseudo-element labels */
+        text-align: right;
+        white-space: normal; /* Allow text wrapping */
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: calc(50% - 20px);
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: var(--color-warning); /* Label color, using warning accent */
+    }
+
+    /* Apply specific styles for the "Action" label */
+    td:nth-of-type(4):before {
+        content: "Action:";
+    }
+
+    /* Adjust padding for delete button to prevent overflow */
+    td:nth-of-type(4) {
+        text-align: center;
+        padding-left: 10px; /* Reset padding for delete button column */
+    }
 }
