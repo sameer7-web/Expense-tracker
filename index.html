@@ -4,50 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Money Tracker WebA pp</title>
+    <title>Money Tracker</title>
 </head>
 <body>
-    <h1> Money Tracker Web App</h1>
-    <div class="input-section">
-        <label for="category-select">Category:</label>
-        <select id="category-select">
-            <option value="College Fee">College Fee</option>
-            <option value="Rent">Rent</option>
-            <option value="Transport">Transport</option>
-            <option value="Food">Food</option>
-            <option value="Shopping">Shopping</option>
-            <option value="Cool Drinks">Cool Drinks</option>
-        </select>
-        <label for="amount-input">Amount:</label>
-        <input type="number" id="amount-input">
-        <label for="date-input">Date:</label>
-        <input type="date" id="date-input">
-        <button id="add-btn">Add</button>
-    </div>
-    <div class="expenses-list">
-        <h2>Expenses List</h2>
-        <table>
-            <thead>
-                
+    <div class="container">
+        <h1> Money Tracker </h1>
+
+        <div class="input-section card">
+            <h2>Add New Expense</h2>
+            <div class="input-group">
+                <label for="category-select">Category:</label>
+                <select id="category-select">
+                    <option value="College Fee">College Fee</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Food">Food</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Cool Drinks">Cool Drinks</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Entertainment">Entertainment</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="amount-input">Amount (₹):</label>
+                <input type="number" id="amount-input" placeholder="e.g., 500">
+            </div>
+            <div class="input-group">
+                <label for="date-input">Date:</label>
+                <input type="date" id="date-input">
+            </div>
+            <button id="add-btn">Add Expense</button>
+        </div>
+
+        <div class="expenses-list card">
+            <h2>Your Expenses</h2>
+            <table>
+                <thead>
                     <tr>
                         <th>Category</th>
                         <th>Amount</th>
                         <th>Date</th>
-                        <th>Delete</th>
+                        <th>Action</th>
                     </tr>
-                
-            </thead>
-            <tbody id="expense-table-body">
-
-            </tbody>
-            <tfoot>
-                <td>Total:</td>
-                <td id="total-amount"></td>
-                <td></td>
-                <td></td>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody id="expense-table-body">
+                    </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total:</td>
+                        <td id="total-amount">0</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button id="clear-all-btn" class="clear-all-btn">Clear All Expenses</button>
+        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
